@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
 use App\Notifications\SignupActivate;
+use Avatar;
+use Storage;
 
 class AuthController extends Controller
 {
@@ -20,17 +22,24 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'firstName' => 'required|string',
+            'lastName' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
         $user = new User([
-            'name' => $request->name,
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'gender' => $request->gender,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'activation_token' => str_random(60)
         ]);
         $user->save();
+        
+        $avatar = Avatar::create($user->lastName)->getImageObject()->encode('png');
+        Storage::put('avatars/'.$user->id.'/avatar.png', (string) $avatar);
+
         $user->notify(new SignupActivate($user));
         return response()->json([
             'message' => 'Successfully created user!'

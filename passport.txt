@@ -9,3 +9,14 @@ Client Secret: noT9iEeTBlqdez5el1KNlYtZvCnugVw7rf86Az7C
     "token_type": "Bearer",
     "expires_at": "2018-07-09 01:28:10"
 }
+
+
+            $table->string('firstName');
+            $table->string('LastName');
+            $table->string('nickName');
+            $table->string('gender');
+            $table->date('birthday');
+            $table->integer('age');
+            $table->string('status');
+            $table->string('phone');
+            $table->string('city');

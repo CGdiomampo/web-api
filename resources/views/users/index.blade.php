@@ -7,15 +7,27 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Create User</h1>
+            <h1 class="m-0 text-dark">Create User</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
-        </ol>
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Starter Page</li>
+            </ol>
         </div><!-- /.col -->
+
     </div><!-- /.row -->
+
+    <div class="row mb-2">
+        <div class="col-sm-12">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+        </div>
+    </div>
+
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
@@ -70,11 +82,11 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" id="{{$user->id}}" token="{{ csrf_token() }}" class="dropdown-item delete" href="#">Delete</a>
                                             </div>
                                         </div>
                                     </td>

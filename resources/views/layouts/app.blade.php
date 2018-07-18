@@ -271,13 +271,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/demo.js"></script>
 <!-- FastClick -->
 <script src="/plugins/fastclick/fastclick.js"></script>
+
+
+
+    <script>
+    $( document ).ready(function() {
+        $(".delete").click(function(){
+            var id = $(this).attr("id");
+            var token = $(this).attr("token");
+            $.ajax(
+            {
+                url: "/admin/users/"+id+"/delete",
+                type: 'PUT',
+                dataType: "JSON",
+                data: {
+                    "id": id,
+                    "_method": 'DELETE',
+                    "_token": token,
+                },
+                success: function ()
+                {
+                    console.log("it Work");
+                }
+            });
+
+            console.log("It failed");
+        });
+    });
+    </script>
+
 </body>
 </html>

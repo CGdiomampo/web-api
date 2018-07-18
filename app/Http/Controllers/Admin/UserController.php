@@ -89,10 +89,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $user,$id)
     {
-        $user = DB::table('users')->first();
-        
+        //$user = DB::table('users')->first();
+
+        $user = User::find($id);
+
         return view('users.edit', compact('user'));
     }
 
@@ -103,9 +105,24 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+
+            $user = User::find($id);
+
+            $user->firstName = $request->firstName;
+            $user->lastName = $request->lastName;
+
+            if ( ! $request->password == '')
+            {
+                $user->password = Hash::make($request->password);
+            }
+
+            $user->update();
+
+            return redirect()->route('admin.users.index')->with('status', 'User updated!');
+
+            //exit;
     }
 
     /**
@@ -114,8 +131,16 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user, $id)
     {
-        //
+
+        $v = User::find(6);
+        dd($v);exit;
+        $user->delete();
+        //return redirect()->route('admin.users.index')->with('status', 'User deleted!');
+
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
     }
 }

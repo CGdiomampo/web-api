@@ -39,7 +39,8 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function () {
     Route::get('/users/create', 'admin\UserController@create')->name('admin.users.create');
     Route::post('/users/store', 'admin\UserController@store')->name('admin.users.store');
     Route::get('/users/{id}/edit', 'admin\UserController@edit')->name('admin.users.edit');
-    Route::patch('/users/update', 'admin\UserController@update')->name('admin.users.update');
+    Route::put('/users/{id}/update', 'admin\UserController@update')->name('admin.users.update');
+    Route::put('/users/{id}/delete', 'admin\UserController@destroy')->name('admin.users.delete');
     Route::get('/users/{id}', 'admin\UserController@profile')->name('admin.users.profile');
     
     // Route::get('users', function () {
